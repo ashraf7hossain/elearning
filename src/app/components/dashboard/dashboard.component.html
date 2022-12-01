@@ -1,0 +1,64 @@
+
+<div class="recent-course">
+  <div class="heading">
+    <h1>
+      <strong>RECENTLY ACCESSED</strong> COURSES
+    </h1>
+    <p>
+      see your recently accessed courses
+    </p>
+    <div class="show-case">
+      <div [routerLink]="['/course', course.id, course.shortname]" class="card" *ngFor = "let course of recentCourses">
+        <img [src] = "course.courseimage"/>
+        <div class="backdrop">
+        </div>
+        <div class="backdrop-content">
+          <h3>
+            {{ course.shortname }}
+          </h3>
+          <div [innerHTML] = "course.summary"></div>
+        </div>
+      </div>
+    </div>
+    <button class="course-btn" (click) = "toggleCourse()">
+      See your all courses
+    </button>
+  </div>
+</div>
+
+<div *ngIf = "courseOpen" class="enrol-cards">
+  <div [routerLink]="['/course', course.id, course.shortname]" class="enrol-card" *ngFor = "let course of courses">
+    <div class="enrol-content">
+      <h3>
+        {{ course.shortname }}
+      </h3>
+      <div [innerHTML]="course.summary">
+      </div>
+      <div class="progress-bar">
+        <div class="prog" [ngStyle] = "course.css"></div>
+      </div>
+      <p *ngIf = "course.progress !== null">
+        {{ course.progress }}% completed 
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="cards">
+  <div class="card" *ngFor="let course of courses">
+    <h3>
+      {{ course.shortname }}
+    </h3>
+    <h5>course summary</h5>
+    <div [innerHTML]="course.summary"></div>
+    <a [routerLink]="['/course', course.id, course.shortname]">Go</a>
+  </div>
+</div>
+
+<h2>Recent Courses</h2>
+
+<div *ngFor="let course of recentCourses">
+  {{ course.shortname }}
+</div>
+<a href="https://demo.elearning23.com/course/view.php?id=131">GO</a> -->

@@ -1,0 +1,17 @@
+<p>question works!</p>
+<h2>
+    {{ quizId }}
+    {{ attemptId }}
+</h2>
+
+<!-- <div class="question" [innerHTML] = "questionCard">
+
+</div> -->
+
+<ng-container *ngFor = "let question of questionCards">
+    <div class="question" [innerHTML] = "question"></div>
+</ng-container>
+
+
+<button *ngIf = "nextPage !== -1" (click) = "nextQuestion()">next</button>
+<button *ngIf = "nextPage === -1" (click) = "submitAttempt()">Submit</button>

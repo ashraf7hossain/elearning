@@ -1,0 +1,28 @@
+<!-- <h1>
+    {{ quizContent.quizzes[0].name }}
+</h1>
+
+<p [innerHTML] = "quizContent.quizzes[0].intro"></p> -->
+
+<h3>
+    summary of previous attempts
+</h3>
+
+<div *ngFor = "let attempt of attempts; let id = index">
+    <div class="attempt" (click) = "goto(attempt)">
+        <h3>
+            {{ attempt.state }}
+        </h3>
+        <p>
+            {{ attempt.sumgrades }}
+        </p>
+        <p *ngIf = "attempt.timefinish">
+            submitted
+            {{  attempt.timefinish * 1000 | date }}
+        </p>
+    </div>
+</div>
+
+<button (click) = "attempt()" class="floating-btn">
+    {{ buttonText }}
+</button>

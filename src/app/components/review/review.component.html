@@ -1,0 +1,10 @@
+
+<div class="attempt">
+    <div *ngFor = "let q of questionsHtml">
+        <div [innerHTML] = "q"></div>
+    </div>
+</div>
+
+<button (click) = "goBack()"  class="floating-btn">
+    Return to quiz page
+</button>

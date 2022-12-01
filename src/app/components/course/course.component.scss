@@ -1,0 +1,21 @@
+h1{
+    font-weight: bold;
+}
+.topic{
+    margin: 40px 30px;
+}
+ul{
+    li{
+        display: flex;
+        // margin: 20px 30px;
+        border-radius: 10px;
+        // max-width: 500px;
+        box-shadow: 2px 3px 4px grey;
+        padding: 20px 40px;
+        align-items: center;
+        .activity-name{
+            font-weight: bold;
+            margin-left: 20px;
+        }
+    }
+}

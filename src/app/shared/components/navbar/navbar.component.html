@@ -1,0 +1,16 @@
+<nav *ngIf = "visible">
+    <div class="nav-items">
+        <div class="left">
+            <ul>
+                <li [routerLink] = "['dashboard']" routerLinkActive = "active">Courses</li>
+                <li>Dashboard</li>
+                <li [routerLink] = "['user']" routerLinkActive = "active">Profile</li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                <li (click) = "logout()">Logout</li>
+            </ul>
+        </div>
+    </div>
+</nav>

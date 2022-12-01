@@ -1,0 +1,17 @@
+<section class="form">
+
+    <h2 class="text-center mt-5">
+        Login 
+    </h2>
+    
+<form #f = "ngForm" (ngSubmit) = "Login(f)">
+    <input id = "email" name = "email" type = "text" [ngClass] = "{'warning' : warning.email}" placeholder = "email/username" ngModel/>
+    <input name = "password" type = "password"[ngClass] = "{'warning' : warning.pass}" placeholder = "password" ngModel/>
+    <p class="credential">
+        {{ credential }}
+    </p>
+    <button type = "submit" >Login</button>
+    
+</form>
+
+</section>

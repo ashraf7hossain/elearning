@@ -1,0 +1,47 @@
+@import "../../shared/variable";
+
+.form{
+    margin-top: 10%;
+    max-width: 500px;
+    margin: auto;
+}
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 500px;
+    height: auto;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    input{
+        margin: 15px 0px;
+        padding: 5px 10px;
+        // border-radius: 10px;
+        border: none;
+        border-bottom: 2px solid $brand-grey;
+        transition: 0.3s ease-in-out;
+        &:focus{
+            outline: none;
+            border-bottom: 2px solid $brand-blue;
+        }
+    }
+    button{
+        // width: 250px;
+        // margin: auto;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        background-color: $brand-blue;
+        color: $brand-white;
+    }
+    .credential{
+        margin: 20px auto;
+        color: crimson;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+}
+.warning{
+    border-bottom: 2px solid crimson !important;
+}

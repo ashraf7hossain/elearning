@@ -1,0 +1,130 @@
+.users-achivement{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(grey, 0.01);
+    h1{
+        font-size: 20px;
+        font-weight: 800;
+    }
+    .achivement-star{
+        position: relative;
+        p{
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            left: 50%;
+            font-weight: bolder;
+            transform: translate(-50%,-50%);
+        }
+    }
+    animation: zoom-in 0.6s;
+}
+.exp{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 94px;
+    font-size: 1.25rem;
+    color: grey;
+    .trophy-item{
+        display: flex;
+        align-items: center;
+        span{
+            font-size: 1rem;
+        }
+    }
+}
+.progress-bar{
+    width: 290px;
+    height: 15px;
+    background-color: rgba(grey,0.3);
+    border-radius: 10px;
+    .bar{
+        width: 90%;
+        height: 13px;
+        background-image: linear-gradient(dodgerblue,rgb(0, 110, 255));
+        border-radius: 10px;
+    }
+}
+.remain{
+    width: 290px;
+    display: flex;
+    justify-content: flex-end;
+    color: rgba(grey, 0.6);
+    span{
+        color: #000;
+        font-weight: bold;
+    }
+}
+.participate{
+    position: relative;
+    width: 300px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-align: center;
+    box-shadow: 1px 2px 4px rgba(0 , 0 , 255, 0.5);
+    color: blue;
+    font-weight: bold;
+    background-color: rgba(dodgerblue, 0.1);
+    .close{
+        position: absolute;
+        right: 0;
+        color: grey;
+        text-align: right;
+    }
+}
+.participate.close{
+    display: none;
+}
+.awards{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    p{
+        color: grey;
+    }
+    &__div{
+        display: flex;
+        justify-content: space-between;
+        div{
+            text-align: left;
+            flex: 1;
+            &:nth-child(2){
+                flex: 3;
+            }
+            &:last-child{
+                color: grey;
+            }
+        }
+    }
+}
+.icons{
+    margin-top: 2rem;
+    color: grey;
+    font-size: 2rem;
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+    .item{
+        p{
+            font-size: 1rem;
+            margin-top: 0px;
+            color: black;
+            font-weight: bold;
+        }
+    }
+}
+
+@keyframes zoom-in {
+    0%{
+        scale: 0;
+    }
+    100%{
+        scale: 1;
+    }
+
+}
