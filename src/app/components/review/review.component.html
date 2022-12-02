@@ -1,4 +1,19 @@
 
+<div class="question-info">
+    <p>
+        started on : {{ attemptResponse.attempt.timestart * 1000 | date: 'MMM d, y h:mm a' }}
+    </p>
+    <p>
+        state : {{ attemptResponse.attempt.state }}
+    </p>
+    <p>
+        completed on : {{ attemptResponse.attempt.timefinish * 1000 | date: 'MMM d, y h:mm a' }}
+    </p>
+    <p>
+        Time taken: {{ (attemptResponse.attempt.timefinish - attemptResponse.attempt.timestart) | timer }}
+    </p>
+</div>
+
 <div class="attempt">
     <div *ngFor = "let q of questionsHtml">
         <div [innerHTML] = "q"></div>

@@ -27,14 +27,11 @@ export class QuestionComponent implements OnInit {
   questionCards: any[] = [];
   nextPage = 0;
   cleanHtml = '';
-  quid: string = ''; // question id
-  qsid: string = ''; // question sequence id
-  cqs: number = 1; // current question number default is 1
+
+
   ngOnInit(): void {
     this.quizId = this.acr.snapshot.params['quiz'];
     this.attemptId = this.acr.snapshot.params['attempt'];
-    this.quid = `q${this.attemptId}:${this.cqs}_answer`;
-    this.qsid = `q${this.attemptId}:${this.cqs}_:sequencecheck`;
     let jsontoken: any = localStorage.getItem('token');
     this.token = JSON.parse(jsontoken).token;
     this._quiz
@@ -42,9 +39,9 @@ export class QuestionComponent implements OnInit {
       .subscribe((res: any) => {
         this.questionContent = res;
         this.nextPage = res.nextpage;
-        this.questionCard = this.sanitize.bypassSecurityTrustHtml(
-          res.questions[0].html
-        );
+        // this.questionCard = this.sanitize.bypassSecurityTrustHtml(
+        //   res.questions[0].html
+        // );
         this.questionCards = res.questions.map((quest: any) =>
           this.sanitize.bypassSecurityTrustHtml(quest.html)
         );
@@ -65,8 +62,9 @@ export class QuestionComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
       });
+      let nxt = this.nextPage.toString();
     this._quiz
-      .getAttemptData(this.token, this.attemptId, '1')
+      .getAttemptData(this.token, this.attemptId, nxt)
       .subscribe((res: any) => {
         this.nextPage = res.nextpage;
         console.log(res);
@@ -81,21 +79,36 @@ export class QuestionComponent implements OnInit {
     let allRadioInputs: any[] = [];
     let quids = [];
     let data: any = [];
-    let nodeList:any[] = Array.from(
+    let sequenceList: any[] = Array.from(
       document.querySelectorAll('input[name*=sequencecheck]')
     );
-    nodeList = nodeList.map((node: any) => ({name : node.name, value: node.value}));
+    sequenceList = sequenceList.map((node: any) => ({
+      name: node.name,
+      value: node.value,
+    }));
     let answerList: any[] = Array.from(
       document.querySelectorAll('input[name*=answer')
     );
+    // checking question type to populate our questions
 
-    answerList = answerList
-      .filter((answer: any) => answer.checked === true)
-      .map((node: any) => ({ name: node.name, value: node.value }));
+    let qtype = answerList[0].type;
 
-    for(let i = 0 ; i < answerList.length; ++i){
+    answerList = this.mixedHelper(answerList);
+
+    // switch(qtype){
+    //   case "radio":
+    //     answerList = this.radioHelper(answerList);
+    //     break;
+    //   case "text":
+    //     answerList = this.textHelper(answerList);
+    //     break;
+    // }
+
+    console.log('answer list ', answerList);
+
+    for (let i = 0; i < answerList.length; ++i) {
       data.push(answerList[i]);
-      data.push(nodeList[i]);
+      data.push(sequenceList[i]);
       // data.push({name: node.name , value: node.value});
     }
 
@@ -112,6 +125,8 @@ export class QuestionComponent implements OnInit {
       finishAttempt = '1';
       timeup = '1';
     }
+    console.log(data);
+
     this._quiz
       .processAttempt(this.token, this.attemptId, data, finishAttempt, timeup)
       .subscribe((res: any) => {
@@ -119,5 +134,43 @@ export class QuestionComponent implements OnInit {
           this.router.navigate([`review/${this.attemptId}`]);
         }
       });
+  }
+
+  // handles MCQ question and true/false question
+  radioHelper(answerList: any[]): any[] {
+    answerList = answerList
+      .filter((answer: any) => answer.checked === true)
+      .map((node: any) => ({ name: node.name, value: node.value }));
+    return answerList;
+  }
+
+  // hadnles short question
+  textHelper(answerList: any[]): any[] {
+    answerList = answerList.map((node: any) => ({
+      name: node.name,
+      value: node.value,
+    }));
+    return answerList;
+  }
+  // handles Mixed questions { MCQ, TrUE/FALSE, SHORT QUESTION}
+  mixedHelper(answerList: any[]): any[] {
+    console.log(answerList);
+
+    answerList = answerList
+      .filter((node: any) => {
+        if (node.type === 'text') return true;
+        if (node.type === 'radio' && node.checked) return true;
+        return false;
+      })
+      .map((node: any) => {
+        let ret: any = {};
+        if (node.type === 'radio') {
+          ret = { name: node.name, value: node.value };
+        } else if (node.type === 'text') {
+          ret = { name: node.name, value: node.value };
+        }
+        return ret;
+      });
+    return answerList;
   }
 }

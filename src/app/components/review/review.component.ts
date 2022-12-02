@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
+import { TimerPipe } from 'src/app/shared/pipes/timer.pipe';
 
 @Component({
   selector: 'app-review',
@@ -15,6 +16,7 @@ export class ReviewComponent implements OnInit {
 
   attemptId: string = "";
   questionsHtml: any[] = [];
+  attemptResponse: any = {};
 
   ngOnInit(): void {
     this.attemptId = this.acr.snapshot.params['id'];
@@ -26,6 +28,7 @@ export class ReviewComponent implements OnInit {
       
     }
     this._quiz.getAttemptReview(token , this.attemptId).subscribe((res: any)=>{
+      this.attemptResponse = res;
       let temp = res.questions;
       console.log(res);
       for(let ques of temp){
@@ -35,7 +38,7 @@ export class ReviewComponent implements OnInit {
   }
 
   goBack(){
-    
+    window.history.go(-2);
   }
 
 }

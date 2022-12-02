@@ -19,6 +19,8 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { UserComponent } from './components/user/user.component';
 import { UserAchivementComponent } from './shared/components/user-achivement/user-achivement.component';
 
+import { TimerPipe } from './shared/pipes/timer.pipe';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { UserAchivementComponent } from './shared/components/user-achivement/use
     ReviewComponent,
     NavbarComponent,
     UserComponent,
-    UserAchivementComponent
+    UserAchivementComponent,
+    TimerPipe
   ],
   imports: [
     BrowserModule,
