@@ -87,13 +87,16 @@ export class QuestionComponent implements OnInit {
       value: node.value,
     }));
     let answerList: any[] = Array.from(
-      document.querySelectorAll('input[name*=answer')
+      document.querySelectorAll('input[name*=answer],input[name*=choice]')
     );
+
     // checking question type to populate our questions
 
     let qtype = answerList[0].type;
-
+    // console.log(sequenceList);
+    
     answerList = this.mixedHelper(answerList);
+
 
     // switch(qtype){
     //   case "radio":
@@ -104,15 +107,17 @@ export class QuestionComponent implements OnInit {
     //     break;
     // }
 
-    console.log('answer list ', answerList);
+    // console.log('answer list ', answerList);
 
     for (let i = 0; i < answerList.length; ++i) {
       data.push(answerList[i]);
-      data.push(sequenceList[i]);
       // data.push({name: node.name , value: node.value});
     }
+    for(let i = 0 ; i < sequenceList.length; ++i){
+      data.push(sequenceList[i]);
+    }
 
-    // console.log(data);
+    console.log(data);
 
     return data;
   }
@@ -125,7 +130,7 @@ export class QuestionComponent implements OnInit {
       finishAttempt = '1';
       timeup = '1';
     }
-    console.log(data);
+    console.log("data : ",data);
 
     this._quiz
       .processAttempt(this.token, this.attemptId, data, finishAttempt, timeup)
@@ -154,12 +159,13 @@ export class QuestionComponent implements OnInit {
   }
   // handles Mixed questions { MCQ, TrUE/FALSE, SHORT QUESTION}
   mixedHelper(answerList: any[]): any[] {
-    console.log(answerList);
+    // console.log(answerList);
 
     answerList = answerList
       .filter((node: any) => {
         if (node.type === 'text') return true;
         if (node.type === 'radio' && node.checked) return true;
+        if (node.type === 'checkbox' && node.checked) return true;
         return false;
       })
       .map((node: any) => {
@@ -168,6 +174,8 @@ export class QuestionComponent implements OnInit {
           ret = { name: node.name, value: node.value };
         } else if (node.type === 'text') {
           ret = { name: node.name, value: node.value };
+        }else if(node.type === 'checkbox'){
+          ret = { name : node.name , value: node.value}
         }
         return ret;
       });

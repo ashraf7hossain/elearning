@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HelperService } from '../shared/services/helper';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class SiteService {
   private token: string = '';
   private userInfo: any = {};
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private helper: HelperService) {
     let jsontoken = localStorage.getItem('token');
     let tokens: any = {};
     if (jsontoken !== null) {
@@ -87,6 +88,60 @@ export class SiteService {
     form.append('wsfunction', 'core_course_get_contents');
     form.append('moodlewsrestformat', 'json');
     form.append('courseid', courseid);
+    return this.http.post(
+      `${environment.baseUrl}/webservice/rest/server.php`,
+      form,
+      {
+        responseType: 'json',
+      }
+    );
+  }
+
+  formMaker(data: any): any {
+    let form = new FormData();
+    form.append('wstoken', this.token);
+    form.append('moodlewsrestformat', 'json');
+    for (const [key, value] of Object.entries(data)) {
+      form.append(key, value as string);
+    }
+    return form;
+  }
+
+  activityCompletionManually(coursemodule: string, completion: string) {
+    let form = new FormData();
+    form.append('wstoken', this.token);
+    form.append(
+      'wsfunction',
+      'core_completion_update_activity_completion_status_manually'
+    );
+    form.append('moodlewsrestformat', 'json');
+    form.append('cmid', coursemodule);
+    form.append('completed', completion);
+    return this.http.post(
+      `${environment.baseUrl}/webservice/rest/server.php`,
+      form,
+      {
+        responseType: 'json',
+      }
+    );
+  }
+
+  activityStatus(courseId: string, token: string): Observable<any> {
+    let form = new FormData();
+    form.append('wstoken', token);
+    form.append(
+      'wsfunction',
+      'core_completion_get_activities_completion_status'
+    );
+    let userid = localStorage.getItem('userid');
+    let user = "";
+    if(userid !== null){
+      user = userid;
+    }
+    form.append('moodlewsrestformat', 'json');
+    form.append('userid',user);
+    form.append('courseid', courseId);
+
     return this.http.post(
       `${environment.baseUrl}/webservice/rest/server.php`,
       form,

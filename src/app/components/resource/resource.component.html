@@ -1,7 +1,13 @@
 <h1>
-    {{ resources[0].name  }}
+  {{ resources[0].name }}
 </h1>
-<p [innerHTML] = "resources[0].intro">
-</p>
+<p [innerHTML]="resources[0].intro"></p>
 
-<video [src] = "contents" controls></video>
+
+<video id = "video" [src] = "contents" controls></video>
+
+<ng-container *ngIf = "showBtn">
+  <button (click) = "goto()">
+    got to quiz
+  </button>
+</ng-container>

@@ -9,19 +9,35 @@
       <h2>{{ topic.name }}</h2>
       <ul>
         <li *ngFor="let module of topic.modules">
-          <ng-container *ngIf="module.modname === 'quiz'; else other">
-            <a [routerLink]="['/quiz', courseId, module.instance]">
-              <img [src]="module.modicon" />
-            </a>
+
+          <ng-container [ngSwitch] = "module.modname">
+            <div class="modcard" *ngSwitchCase = "'quiz'">
+              <a [routerLink]="['/quiz', courseId, module.instance]">
+                <img [src]="module.modicon" />
+                <p>
+                  {{ module.name }}
+                </p>
+              </a>
+            </div>
+            <div class="modcard" *ngSwitchCase = "'resource'">
+              <a [routerLink]="['/resource', courseId, quizId]">
+                <img [src]="module.modicon" />
+                <p>
+                  {{ module.name }}
+                </p>
+              </a>
+            </div>
+            <div class="modcard" *ngSwitchDefault>
+              <a [href] = "module.url">
+                <img [src]="module.modicon" />
+                <p>
+                  {{ module.name }}
+                </p>
+              </a>
+            </div>
           </ng-container>
-          <ng-template #other>
-            <a [routerLink]="['/resource', courseId]">
-              <img [src]="module.modicon" />
-            </a>
-          </ng-template>
-          <div class="activity-name">
-            {{ module.name }}
-          </div>
+
+          
         </li>
       </ul>
     </div>

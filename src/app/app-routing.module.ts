@@ -16,7 +16,7 @@ const routes: Routes = [
   {path : 'dashboard' , component: DashboardComponent , canActivate: [AuthGuard]},
   {path : 'course/:id/:name' , component: CourseComponent},
   {path : 'quiz/:courseid/:quizid' , component: QuizComponent},
-  {path : 'resource/:id' , component: ResourceComponent},
+  {path : 'resource/:id/:quizid' , component: ResourceComponent},
   {path : 'question/:quiz/:attempt' , component: QuestionComponent},
   {path : 'review/:id' , component: ReviewComponent},
   {path : 'user' , component: UserComponent}

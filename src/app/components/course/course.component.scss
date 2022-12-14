@@ -4,6 +4,19 @@ h1{
 .topic{
     margin: 40px 30px;
 }
+
+.modcard{
+    display: flex;
+    a{
+        text-decoration: none;
+        display: flex;
+        color: black;
+        align-items: center;
+        p{
+            margin-left: 10px;
+        }
+    }
+}
 ul{
     li{
         display: flex;

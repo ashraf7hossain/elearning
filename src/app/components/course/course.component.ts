@@ -19,6 +19,7 @@ export class CourseComponent implements OnInit {
   courseContent: any = {};
   courseName: string = '';
   quiz: any = {};
+  quizId: string = "";
   courseId: string = '0';
   currentPage = 0;
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class CourseComponent implements OnInit {
     console.log('course id is ', this.courseId);
     this._site.getCourseContent(this.courseId).subscribe((res) => {
       this.courseContent = res;
-      console.log(this.courseContent);
+      console.log("course content : ",this.courseContent);
     });
     let jsontoken = localStorage.getItem('token');
     let tokens: any = {};
@@ -38,6 +39,8 @@ export class CourseComponent implements OnInit {
     console.log(tokens.token, this.courseId);
     this._quiz.getQuiz(tokens.token, this.courseId).subscribe((res: any) => {
       this.quiz = res;
+      this.quizId = res.quizzes[0].id;
+      console.log(this.quiz.quizzes);
     });
   }
 }

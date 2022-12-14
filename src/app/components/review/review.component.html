@@ -1,16 +1,23 @@
+<!-- <pre>
+    {{ attemptResponse | json }}
+</pre> -->
 
-<div class="question-info">
+
+<div class="review-info">
     <p>
-        started on : {{ attemptResponse.attempt.timestart * 1000 | date: 'MMM d, y h:mm a' }}
+        Started on : {{ attemptResponse.attempt.timestart * 1000 | date: 'MMM d, y h:mm a' }}
     </p>
     <p>
-        state : {{ attemptResponse.attempt.state }}
+        State : {{ attemptResponse.attempt.state }}
     </p>
     <p>
-        completed on : {{ attemptResponse.attempt.timefinish * 1000 | date: 'MMM d, y h:mm a' }}
+        Completed on : {{ attemptResponse.attempt.timefinish * 1000 | date: 'MMM d, y h:mm a' }}
     </p>
     <p>
         Time taken: {{ (attemptResponse.attempt.timefinish - attemptResponse.attempt.timestart) | timer }}
+    </p>
+    <p>
+        Score : {{ attemptResponse.attempt.sumgrades }}
     </p>
 </div>
 

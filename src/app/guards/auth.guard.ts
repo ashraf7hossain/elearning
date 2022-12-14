@@ -8,9 +8,7 @@ import { Observable, retry } from 'rxjs';
 export class AuthGuard implements CanActivate {
   canActivate(): boolean{
     console.log(localStorage.getItem('token'));
-    
     return !!localStorage.getItem('token');
-    
   }
   
 }

@@ -17,6 +17,7 @@ export class QuizComponent implements OnInit {
   courseId: string = '';
   quizId: string = '';
   buttonText: string = "RE-ATTEMPT";
+  error : string = "";
   attemptId: string = "";
   quizContent: any = {};
   quizSummary: any;
@@ -28,6 +29,7 @@ export class QuizComponent implements OnInit {
     let jsontoken: any = localStorage.getItem('token');
     let token = JSON.parse(jsontoken).token;
     this.token = token;
+    
     // this._quiz.getQuiz(token, this.courseId).subscribe((res: any) => {
     //   this.quizContent = res;
     //   this.quizId = res.quizzes[0].id;
@@ -37,6 +39,11 @@ export class QuizComponent implements OnInit {
     setTimeout(() => {
       this._quiz.getUserAttempts(token, this.quizId).subscribe((res: any) => {
         this.quizSummary = res;
+        if(res.errorcode === "requireloginerror"){
+          this.error = res.message;
+          // alert(res.message);
+          return;
+        }
         this.attempts = res.attempts;
         for(const attempt of this.attempts){
           if(attempt.state === "inprogress"){
@@ -56,6 +63,10 @@ export class QuizComponent implements OnInit {
   }
 
   attempt(){
+    if(this.error !== ""){
+      alert(this.error);
+      return;
+    }
     if(this.buttonText === "CONTINUE ATTEMPT"){
       this.router.navigate([`question/${this.quizId}/${this.attemptId}`]);
     }else{

@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class TimerPipe implements PipeTransform{
     transform(value: any, ...args: any[]) {
-        return `${Math.round(value/60)}mins${value%60}secs`;
+        return `${Math.round(value/60)} mins ${value%60} secs`;
     }
 }

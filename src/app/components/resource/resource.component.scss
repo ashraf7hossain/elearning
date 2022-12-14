@@ -2,3 +2,6 @@ video{
     max-width: 600px;
     height: auto;
 }
+video::-webkit-media-controls-timeline {
+    display: none;
+}

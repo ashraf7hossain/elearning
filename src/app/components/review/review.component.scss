@@ -21,8 +21,11 @@ img {
 .r1,
 .r0 {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
+  label{
+    width: 100%;
+  }
   .answernumber {
     margin-right: 20px;
   }
@@ -87,4 +90,10 @@ img {
   white-space: nowrap;
   clip-path: inset(50%);
   border: 0;
+}
+.review-info{
+  border: 2px solid grey;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 10px;
 }
